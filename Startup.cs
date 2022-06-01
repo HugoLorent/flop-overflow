@@ -46,6 +46,8 @@ namespace FlopOverflow
             {
                 endpoints.MapControllers();
             });
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
