@@ -37,26 +37,24 @@ namespace FlopOverflow.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PostItem>> GetPost(int id)
         {
-            var Post = await _context.Posts
+            var post = await _context.Posts
                                      .Include(p => p.User)
                                      .FirstAsync(p => p.Id == id);
 
-            if (Post == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return Post;
+            return post;
         }
 
         // PUT: api/Post/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPost(int id, PostItem post)
         {
-            if (id != post.Id)
-            {
-                return BadRequest();
-            }
+            post.Id = id;
+            post.Date = DateTime.Now;
 
             _context.Entry(post).State = EntityState.Modified;
 
@@ -93,17 +91,17 @@ namespace FlopOverflow.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<PostItem>> DeletePost(int id)
         {
-            var Post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts.FindAsync(id);
 
-            if (Post == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            _context.Posts.Remove(Post);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
 
-            return Post;
+            return post;
         }
 
         private bool PostExists(int id)
@@ -115,15 +113,83 @@ namespace FlopOverflow.Controllers
         // === COMMENT ===
         // ===============
 
+        // GET: api/Post/1/Comment
+        [HttpGet]
+        [Route("{postId:int}/Comment")]
+        public async Task<ActionResult<IEnumerable<CommentItem>>> GetComments(int postId)
+        {
+            return await _context.Comments
+                                 .Include(c => c.User)
+                                 .Include(c => c.Post)
+                                 .Where(c => c.Post_id == postId)
+                                 .ToListAsync();
+        }
+
+        // GET: api/Post/1/Comment/1
+        [HttpGet]
+        [Route("{postId:int}/Comment/{commentId:int}")]
+        public async Task<ActionResult<CommentItem>> GetComment(int postId, int commentId)
+        {
+            var comment = await _context.Comments
+                                        .Include(c => c.User)
+                                        .Include(c => c.Post)
+                                        .FirstAsync(c => c.Id == commentId && c.Post_id == postId);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return comment;
+        }
+
         // POST: api/Post/1/Comment
-        [HttpPost("{postId}")]
+        [HttpPost("{postId:int}/Comment")]
         public async Task<ActionResult<CommentItem>> PostComment(int postId, CommentItem comment)
         {
             comment.Post_id = postId;
+            comment.Date = DateTime.Now;
+            comment.Likes = 0;
+
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
-            return comment; // to check
+            return CreatedAtAction(nameof(GetComment), new { postId = postId, commentId = comment.Id }, comment);
+        }
+
+        // PUT: api/Post/1/Comment/1
+        [HttpPut]
+        [Route("{postId:int}/Comment/{commentId:int}")]
+        public async Task<IActionResult> PutComment(int postId, int commentId, CommentItem comment)
+        {
+            comment.Id = commentId;
+            comment.Post_id = postId;
+            comment.Date = DateTime.Now;
+
+            _context.Entry(comment).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CommentExists(postId, commentId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool CommentExists(int postId, int commentId)
+        {
+            return _context.Comments.Any(c => c.Id == commentId && c.Post_id == postId);
         }
     }
 }
