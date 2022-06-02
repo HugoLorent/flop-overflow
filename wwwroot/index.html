@@ -49,7 +49,7 @@
             <div class="container">
                 <a href="#" class="navbar-brand d-flex align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
-                    <strong>Stack Overflop</strong>
+                    <strong>Flop Overflow</strong>
                 </a>
             </div>
         </div>
@@ -61,17 +61,17 @@
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">Flop Overflow</h1>
-                    <p class="lead text-muted">Find the best solution for all of your problems</p>
+                    <p class="lead text-muted">Find the worst solution for all of your problems</p>
                 </div>
             </div>
         </section>
         <div class="container">
-             <p class="mb-1">Most recent questions :</p>
+            <p class="mb-1">Most recent questions :</p>
         </div>
         <div class="album py-5 bg-light">
             <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="posts-container">
+                    <!--<div class="col">
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <p class="card-text">Pourquoi mon projet C# ne compile pas</p>
@@ -84,37 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <p class="card-text">Java : NullPointerException </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Check the topic</button>
-                                    </div>
-                                    <small class="text-muted">5 Likes</small>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <p class="card-text">Test</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Check the topic</button>
-                                    </div>
-                                    <small class="text-muted">5 Likes</small>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -132,7 +102,11 @@
     </footer>
 
 
-    <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!--<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>-->
+    <script src="js/index.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        getPosts();
+    </script>
 
 
 </body>
