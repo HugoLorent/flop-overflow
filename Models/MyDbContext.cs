@@ -37,7 +37,7 @@ namespace FlopOverflow.Models
             modelBuilder.Entity<PostItem>().Property(p => p.Title).HasColumnType("varchar(255)").IsRequired();
             modelBuilder.Entity<PostItem>().Property(p => p.Content).HasColumnType("varchar(255)").IsRequired();
             modelBuilder.Entity<PostItem>().Property(p => p.Likes).HasColumnType("int(11)").IsRequired();
-            modelBuilder.Entity<PostItem>().Property(p => p.Date).HasColumnType("date").IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.Date).HasColumnType("datetime").IsRequired();
             modelBuilder.Entity<PostItem>().Property(p => p.Resolved).HasColumnType("tinyint(1)").IsRequired();
             modelBuilder.Entity<PostItem>().Property(p => p.User_id).HasColumnType("int(11)").IsRequired();
 
@@ -47,7 +47,7 @@ namespace FlopOverflow.Models
             modelBuilder.Entity<CommentItem>().Property(p => p.Id).HasColumnType("int").UseMySqlIdentityColumn();
             modelBuilder.Entity<CommentItem>().Property(p => p.Content).HasColumnType("varchar(255)").IsRequired();
             modelBuilder.Entity<CommentItem>().Property(p => p.Likes).HasColumnType("int(11)").IsRequired();
-            modelBuilder.Entity<CommentItem>().Property(p => p.Date).HasColumnType("date").IsRequired();
+            modelBuilder.Entity<CommentItem>().Property(p => p.Date).HasColumnType("datetime").IsRequired();
             modelBuilder.Entity<CommentItem>().Property(p => p.User_id).HasColumnType("int(11)").IsRequired();
             modelBuilder.Entity<CommentItem>().Property(p => p.Post_id).HasColumnType("int(11)").IsRequired();
 
