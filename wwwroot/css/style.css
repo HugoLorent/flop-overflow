@@ -2733,6 +2733,9 @@ textarea.form-control-lg {
     align-items: stretch;
     width: 100%
 }
+.custom {
+    margin: 10px 8px 20px;
+}
 
     .input-group > .form-control, .input-group > .form-select {
         position: relative;
