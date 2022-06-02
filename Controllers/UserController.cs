@@ -28,7 +28,7 @@ namespace FlopOverflow.Controllers
 
         // GET: api/User/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserItem>> GetUser(long id)
+        public async Task<ActionResult<UserItem>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -56,7 +56,7 @@ namespace FlopOverflow.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(long id, UserItem user)
+        public async Task<IActionResult> PutUser(int id, UserItem user)
         {
             if (id != user.Id)
             {
@@ -86,7 +86,7 @@ namespace FlopOverflow.Controllers
 
         // POST: api/User
         [HttpPost]
-        public async Task<ActionResult<UserItem>> PostTodoItem(UserItem user)
+        public async Task<ActionResult<UserItem>> PostUser(UserItem user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -96,7 +96,7 @@ namespace FlopOverflow.Controllers
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserItem>> DeleteUser(long id)
+        public async Task<ActionResult<UserItem>> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -111,7 +111,7 @@ namespace FlopOverflow.Controllers
             return user;
         }
 
-        private bool UserExists(long id)
+        private bool UserExists(int id)
         {
             return _context.Users.Any(u => u.Id == id);
         }
