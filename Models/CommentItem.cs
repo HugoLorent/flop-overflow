@@ -7,7 +7,7 @@ namespace FlopOverflow.Models
 {
     public class CommentItem
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Content { get; set; }
         public long Likes { get; set; }
         public DateTime Date { get; set; }
