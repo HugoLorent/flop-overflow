@@ -48,8 +48,7 @@ namespace FlopOverflow
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.Json", "My API V1");
-                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("/swagger/v1/swagger.Json", "Flop APIs");
             });
 
             if (env.IsDevelopment())
