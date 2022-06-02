@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlopOverflow.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlopOverflow.Models.Comment
+namespace FlopOverflow.Models
 {
     public class MyDbContext : DbContext
     {
@@ -19,14 +20,29 @@ namespace FlopOverflow.Models.Comment
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Map entities to tables  
+            // Tables
             modelBuilder.Entity<UserItem>().ToTable("User");
             modelBuilder.Entity<PostItem>().ToTable("Post");
             modelBuilder.Entity<CommentItem>().ToTable("Comment");
 
-            modelBuilder.Entity<UserItem>().Property(ug => ug.Id).HasColumnType("int").UseMySqlIdentityColumn().IsRequired();
-            modelBuilder.Entity<UserItem>().Property(ug => ug.Login).HasColumnType("nvarchar(255)").IsRequired();
-            modelBuilder.Entity<UserItem>().Property(ug => ug.Pwd).HasColumnType("nvarchar(255)").IsRequired();
+            // Users
+            modelBuilder.Entity<UserItem>().Property(u => u.Id).HasColumnType("int(11)").UseMySqlIdentityColumn();
+            modelBuilder.Entity<UserItem>().Property(u => u.Login).HasColumnType("varchar(255)").IsRequired();
+            modelBuilder.Entity<UserItem>().Property(u => u.Pwd).HasColumnType("narchar(255)").IsRequired();
+
+            modelBuilder.Entity<UserItem>().HasKey(u => u.Id).HasName("PRIMARY");
+
+            // Posts
+            modelBuilder.Entity<PostItem>().Property(p => p.Id).HasColumnType("int").UseMySqlIdentityColumn().IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.Title).HasColumnType("varchar(255)").IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.Content).HasColumnType("varchar(255)").IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.Likes).HasColumnType("int(11)").IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.Date).HasColumnType("date").IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.Resolved).HasColumnType("tinyint(1)").IsRequired();
+            modelBuilder.Entity<PostItem>().Property(p => p.User_id).HasColumnType("int(11)").IsRequired();
+
+            modelBuilder.Entity<PostItem>().HasKey(u => u.Id).HasName("PRIMARY");
+
         }
 
     }
