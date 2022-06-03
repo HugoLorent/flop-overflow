@@ -1,6 +1,4 @@
 ﻿const postsUri = 'api/Post';
-let posts = [];
-let comments = [];
 
 function getPosts() {
     fetch(postsUri)
@@ -9,8 +7,19 @@ function getPosts() {
         .catch((error) => console.error('Unable to get posts : ', error));
 }
 
+function clickOnDetailsPost() {
+    const btnDetails = document.querySelector('button');
+    const btnDetailsId = btnDetails.id;
+    let postId = '';
+
+    if (btnDetailsId.includes('post-detail')) {
+        postId = btnDetailsId.slice(btnDetailsId.indexOf('detail-'), btnDetailsId.length);
+    }
+}
+
 function displayPosts(posts) {
     const postsContainer = document.getElementById('posts-container');
+
     posts.forEach((post) => {
         const colDiv = document.createElement('div');
         postsContainer.appendChild(colDiv).classList.add('col');
@@ -34,12 +43,15 @@ function displayPosts(posts) {
         contentDiv.appendChild(btnDiv).classList.add('btn-group');
 
         const btn = document.createElement('button');
-        const btnText = document.createTextNode('Check the topic');
+        btn.addEventListener('click', (event) => {
+            location.href = `/details.html?id=${post.id}`
+        });
+        const btnText = document.createTextNode('Check the question');
         btnDiv.appendChild(btn).classList.add('btn', 'btn-sm', 'btn-outline-secondary');
         btn.appendChild(btnText);
 
         const likesElement = document.createElement('small');
-        const likesValue = document.createTextNode(post.likes.toString());
+        const likesValue = document.createTextNode(post.likes.toString() + ' like(s)');
         contentDiv.appendChild(likesElement).classList.add('text-muted');
         likesElement.appendChild(likesValue);
     });
