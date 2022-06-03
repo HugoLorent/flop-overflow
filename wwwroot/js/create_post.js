@@ -1,14 +1,20 @@
 ﻿const uri = 'api/Post';
+window.onload = checkToken;
 document.getElementById("cancel").onclick = function () { window.location.href = "index.html" }
 
-//window.onload = checkToken;
 
 function checkToken() {
+    // add header
+    fetch('template/header.html')
+        .then(response => response.text())
+        .then(text => document.getElementById('navbarHeader').innerHTML = text);
+
     if (check_cookie_name("token") === null) {
-        window.location.href = "index.html";
+        window.location.href = "login.html";
+        console.log("passe")
     }
 }
-
+    
 function createPost() {
     var currentdate = new Date();
     var datetime = currentdate.getFullYear() + "-"
@@ -23,8 +29,7 @@ function createPost() {
         Content: document.getElementById('content').value.trim(),
         Likes: 0,
         Date: datetime,
-        Resolved: false,
-        User_id: 1
+        Resolved: false
     };
     console.log(post)
 
@@ -32,7 +37,8 @@ function createPost() {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken()
         },
         body: JSON.stringify(post)
     })
