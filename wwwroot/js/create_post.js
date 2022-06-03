@@ -1,4 +1,13 @@
 ﻿const uri = 'api/Post';
+document.getElementById("cancel").onclick = function () { window.location.href = "index.html" }
+
+//window.onload = checkToken;
+
+function checkToken() {
+    if (check_cookie_name("token") === null) {
+        window.location.href = "index.html";
+    }
+}
 
 function createPost() {
     var currentdate = new Date();
@@ -29,4 +38,7 @@ function createPost() {
     })
         .then(response => response.json())
         .catch(error => console.error('Unable to add item.', error))
+        .then(window.location.href = "index.html")
+
+    
 }
