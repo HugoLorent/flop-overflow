@@ -3,6 +3,6 @@
 }
 
 function logout() {
-    document.cookie = '';
+    document.cookie = "token=";
     location.href = '/login.html';
 }
