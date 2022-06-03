@@ -1,5 +1,6 @@
-﻿const uri = 'https://flop-overflow.azurewebsites.net/api/Post';
+﻿const uri = 'api/Post'
 
+window.onload = checkParam;
 
 function checkParam() {
     const queryString = window.location.search;
