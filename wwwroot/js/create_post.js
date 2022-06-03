@@ -4,7 +4,11 @@ document.getElementById("cancel").onclick = function () { window.location.href =
 
 
 function checkToken() {
-    console.log("test")
+    // add header
+    fetch('template/header.html')
+        .then(response => response.text())
+        .then(text => document.getElementById('navbarHeader').innerHTML = text);
+
     if (check_cookie_name("token") === null) {
         window.location.href = "login.html";
         console.log("passe")
