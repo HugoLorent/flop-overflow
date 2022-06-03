@@ -20,5 +20,6 @@ namespace FlopOverflow.Models
         public int User_id { get; set; }
         [ForeignKey("User_id")]
         public UserItem User { get; set; }
+        public List<CommentItem> Comments { get; set; }
     }
 }
