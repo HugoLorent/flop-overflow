@@ -74,7 +74,8 @@ function addComment() {
         credentials: "include",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken()
         },
         body: JSON.stringify(comment)
     })
