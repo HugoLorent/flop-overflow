@@ -13,6 +13,14 @@
     <link rel="stylesheet" href="css/style.css">
 
     <script src="js/details.js" asp-append-version="true"></script>
+    <script src="js/common.js" asp-append-version="true"></script>
+
+    <style>
+        .title{
+            padding-top: 20px;
+            font-size : 20px;
+        }
+    </style>
 
 </head>
 <body>
@@ -49,21 +57,19 @@
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h3><b>Je n'arrive pas à gagner à la tournante</b></h3>
-                        <p class="card-text">Alors voila mon probleme : blabla bla blaallalbl vallblbalbl a lfal ldfl zeofkd sonf zeifn sdko,c dsko,ck,c i dc dsc</p>
+                    <div class="card-body" id="card">
+                        <h3><b id="post-title"></b></h3>
+                        <p class="card-text" id="post-content"></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <small class="text-muted">5 Likes</small>
+                                <small class="text-muted" id="post-likes"></small>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Upvote</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">DownVote</button>
-
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="likePost()">Like</button>
                                 </div>
                             </div>
                             <div>
-                                <small class="text-muted">Il y 9 mins</small>
-                                <small class="text-muted">de Utilisateur</small>
+                                <small class="text-muted" id="post-date"></small>
+                                <small class="text-muted" id="post-user"></small>
                             </div>
                         </div>
                     </div>
@@ -71,32 +77,22 @@
             </div>
         </div>
         <div class="container">
-            <p>Answers :</p>
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <p class="card-text">Je peux que tu devrais essayer de viser la table</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-muted">5 Likes</small>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Upvote</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">DownVote</button>
+            <p class="title">Comments :</p>
+            <div class="card shadow-sm" id="comments-container">
 
-                            </div>
-                        </div>
-                        <div>
-                            <small class="text-muted">Il y 9 mins</small>
-                            <small class="text-muted">de Utilisateur</small>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <div class="form-group">
-                <label for="comment">Your comment:</label>
-                <textarea class="form-control" rows="5" id="comment" placeholder="Type your ambigous answer..."></textarea>
+            <p class="title">Write your comments :</p>
+            <div class="form-group" style="padding-top: 20px; padding-bottom: 20px;">
+                <form action="javascript:void(0);" onsubmit="addComment()">
+                    <div class="input-group">
+                        <textarea class="form-control" rows="5" id="comment" placeholder="Type your ambigous answer..." rows="1"></textarea>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
             </div>
         </div>
+
     </main>
 
 

@@ -1,4 +1,4 @@
-﻿const uri = 'https://flop-overflow.azurewebsites.net/api/Login';
+﻿const uri = 'api/Login'
 
 window.onload = checkToken;
 

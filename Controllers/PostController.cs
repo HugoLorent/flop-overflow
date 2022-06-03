@@ -1,9 +1,11 @@
 ﻿using FlopOverflow.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FlopOverflow.Controllers
@@ -28,9 +30,16 @@ namespace FlopOverflow.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PostItem>>> GetPosts()
         {
-            return await _context.Posts
+            var posts = await _context.Posts
                                  .Include(p => p.User)
                                  .ToListAsync();
+
+            foreach (var p in posts)
+            {
+                p.Comments = await _context.Comments.Where(c => c.Post_id == p.Id).ToListAsync();
+            }
+
+            return posts;
         }
 
         // GET: api/Post/1
@@ -44,6 +53,10 @@ namespace FlopOverflow.Controllers
             if (post == null)
             {
                 return NotFound();
+            }
+            else
+            {
+                post.Comments = await _context.Comments.Where(c => c.Post_id == post.Id).ToListAsync();
             }
 
             return post;
@@ -85,6 +98,35 @@ namespace FlopOverflow.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
+        }
+
+        // PATCH: api/Post/1/Like
+        [HttpPatch]
+        [Route("{postId:int}/Like")]
+        public async Task<ActionResult<PostItem>> LikePost(int postId)
+        {
+            PostItem post = GetPost(postId).Result.Value;
+            post.Likes += 1;
+
+            _context.Entry(post).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(postId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return post;
         }
 
         // DELETE: api/Post/5
@@ -145,16 +187,19 @@ namespace FlopOverflow.Controllers
 
         // POST: api/Post/1/Comment
         [HttpPost("{postId:int}/Comment")]
-        public async Task<ActionResult<CommentItem>> PostComment(int postId, CommentItem comment)
+        public async Task<ActionResult<PostItem>> PostComment(int postId, CommentItem comment)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+
             comment.Post_id = postId;
             comment.Date = DateTime.Now;
             comment.Likes = 0;
+            comment.User_id = 1;
 
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetComment), new { postId = postId, commentId = comment.Id }, comment);
+            return await GetPost(postId);
         }
 
         // PUT: api/Post/1/Comment/1

@@ -48,7 +48,8 @@ namespace TestAuthentificationToken.Controllers
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Login)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Login)
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
