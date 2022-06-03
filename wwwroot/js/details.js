@@ -10,6 +10,6 @@ function checkParam() {
     fetch(uri + "/" + id)
         .then(response => response.json())
         .then(data => console.log(data))
-        .catch(error => console.error('Unable to get items.', error));
+        .catch(error => console.error('Unable to get the post : ', error));
 
 }
