@@ -1,6 +1,7 @@
 ﻿const postsUri = 'api/Post';
 
 window.onload = initializePage();
+
 function initializePage() {
     fetch('template/header.html')
         .then(response => response.text())
@@ -53,4 +54,8 @@ function displayPosts(posts) {
         contentDiv.appendChild(likesElement).classList.add('text-muted');
         likesElement.appendChild(likesValue);
     });
+}
+
+function goToCreatePost() {
+    location.href = '/createPost.html';
 }
