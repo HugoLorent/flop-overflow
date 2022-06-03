@@ -1,5 +1,11 @@
 ﻿const postsUri = 'api/Post';
 
+function initializePage() {
+    fetch('template/header.html')
+        .then(response => response.text())
+        .then(text => document.getElementById('navbarHeader').innerHTML = text);
+}
+
 function getPosts() {
     fetch(postsUri)
         .then((response) => response.json())
@@ -7,14 +13,19 @@ function getPosts() {
         .catch((error) => console.error('Unable to get posts : ', error));
 }
 
-function clickOnDetailsPost() {
-    const btnDetails = document.querySelector('button');
-    const btnDetailsId = btnDetails.id;
-    let postId = '';
+function goOnLoginPage() {
+    const loginBtn = document.getElementById('login-btn');
+    loginBtn.addEventListener('click', (event) => {
+        location.href = '/login.html';
+    })
+}
 
-    if (btnDetailsId.includes('post-detail')) {
-        postId = btnDetailsId.slice(btnDetailsId.indexOf('detail-'), btnDetailsId.length);
-    }
+function logout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', (event) => {
+        location.href = '/login.html';
+        document.cookie = '';
+    })
 }
 
 function displayPosts(posts) {
