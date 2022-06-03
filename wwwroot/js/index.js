@@ -1,9 +1,11 @@
 ﻿const postsUri = 'api/Post';
 
+window.onload = initializePage();
 function initializePage() {
     fetch('template/header.html')
         .then(response => response.text())
         .then(text => document.getElementById('navbarHeader').innerHTML = text);
+    getPosts();
 }
 
 function getPosts() {
@@ -11,21 +13,6 @@ function getPosts() {
         .then((response) => response.json())
         .then((posts) => displayPosts(posts))
         .catch((error) => console.error('Unable to get posts : ', error));
-}
-
-function goOnLoginPage() {
-    const loginBtn = document.getElementById('login-btn');
-    loginBtn.addEventListener('click', (event) => {
-        location.href = '/login.html';
-    })
-}
-
-function logout() {
-    const logoutBtn = document.getElementById('logout-btn');
-    logoutBtn.addEventListener('click', (event) => {
-        location.href = '/login.html';
-        document.cookie = '';
-    })
 }
 
 function displayPosts(posts) {
