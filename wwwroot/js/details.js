@@ -1,6 +1,5 @@
 ﻿const uri = 'https://localhost:44348/api/Post';
 
-window.onload = checkParam;
 
 function checkParam() {
     const queryString = window.location.search;
