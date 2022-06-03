@@ -63,6 +63,7 @@ namespace FlopOverflow.Controllers
         }
 
         // PUT: api/Post/5
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPost(int id, PostItem post)
         {
@@ -94,6 +95,7 @@ namespace FlopOverflow.Controllers
         }
 
         // POST: api/Post
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<PostItem>> PostPost(PostItem post)
         {
@@ -108,6 +110,7 @@ namespace FlopOverflow.Controllers
         }
 
         // PATCH: api/Post/1/Like
+        [Authorize]
         [HttpPatch]
         [Route("{postId:int}/Like")]
         public async Task<ActionResult<PostItem>> LikePost(int postId)
@@ -139,6 +142,7 @@ namespace FlopOverflow.Controllers
         }
 
         // DELETE: api/Post/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<PostItem>> DeletePost(int id)
         {
@@ -198,6 +202,7 @@ namespace FlopOverflow.Controllers
         }
 
         // POST: api/Post/1/Comment
+        [Authorize]
         [HttpPost("{postId:int}/Comment")]
         public async Task<ActionResult<PostItem>> PostComment(int postId, CommentItem comment)
         {
@@ -216,6 +221,7 @@ namespace FlopOverflow.Controllers
         }
 
         // PUT: api/Post/1/Comment/1
+        [Authorize]
         [HttpPut]
         [Route("{postId:int}/Comment/{commentId:int}")]
         public async Task<IActionResult> PutComment(int postId, int commentId, CommentItem comment)
