@@ -56,7 +56,7 @@ namespace FlopOverflow.Controllers
             }
             else
             {
-                post.Comments = await _context.Comments.Where(c => c.Post_id == post.Id).ToListAsync();
+                post.Comments = await _context.Comments.Where(c => c.Post_id == post.Id).Include(c => c.User).ToListAsync();
             }
 
             return post;
@@ -66,6 +66,9 @@ namespace FlopOverflow.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPost(int id, PostItem post)
         {
+            if (post.User_id != GetCurrentUser().Id)
+                return Unauthorized();
+
             post.Id = id;
             post.Date = DateTime.Now;
 
@@ -94,6 +97,10 @@ namespace FlopOverflow.Controllers
         [HttpPost]
         public async Task<ActionResult<PostItem>> PostPost(PostItem post)
         {
+            UserItem user = GetCurrentUser();
+            if (user.Id <= 0) return Unauthorized();
+
+            post.User_id = user.Id;
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
@@ -105,6 +112,8 @@ namespace FlopOverflow.Controllers
         [Route("{postId:int}/Like")]
         public async Task<ActionResult<PostItem>> LikePost(int postId)
         {
+            if (GetCurrentUser().Id <= 0) return Unauthorized();
+
             PostItem post = GetPost(postId).Result.Value;
             post.Likes += 1;
 
@@ -134,6 +143,9 @@ namespace FlopOverflow.Controllers
         public async Task<ActionResult<PostItem>> DeletePost(int id)
         {
             var post = await _context.Posts.FindAsync(id);
+
+            if (post.User_id != GetCurrentUser().Id)
+                return Unauthorized();
 
             if (post == null)
             {
@@ -189,12 +201,13 @@ namespace FlopOverflow.Controllers
         [HttpPost("{postId:int}/Comment")]
         public async Task<ActionResult<PostItem>> PostComment(int postId, CommentItem comment)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            UserItem user = GetCurrentUser();
+            if (user.Id <= 0) return Unauthorized();
 
             comment.Post_id = postId;
             comment.Date = DateTime.Now;
             comment.Likes = 0;
-            comment.User_id = 1;
+            comment.User_id = user.Id;
 
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
@@ -207,6 +220,9 @@ namespace FlopOverflow.Controllers
         [Route("{postId:int}/Comment/{commentId:int}")]
         public async Task<IActionResult> PutComment(int postId, int commentId, CommentItem comment)
         {
+            if (GetCurrentUser().Id != comment.User_id)
+                return Unauthorized();
+
             comment.Id = commentId;
             comment.Post_id = postId;
             comment.Date = DateTime.Now;
@@ -235,6 +251,15 @@ namespace FlopOverflow.Controllers
         private bool CommentExists(int postId, int commentId)
         {
             return _context.Comments.Any(c => c.Id == commentId && c.Post_id == postId);
+        }
+
+        // =============
+        // === UTILS ===
+        // =============
+
+        public UserItem GetCurrentUser()
+        {
+            return new UserItem { Id = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)), Login = User.FindFirstValue(ClaimTypes.Name) };
         }
     }
 }

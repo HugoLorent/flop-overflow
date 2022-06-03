@@ -1,8 +1,15 @@
 ﻿const uri = 'api/Post'
 
-window.onload = checkParam;
+window.onload = initializePage;
 
-function checkParam() {
+function initializePage() {
+
+    // add header
+    fetch('template/header.html')
+        .then(response => response.text())
+        .then(text => document.getElementById('navbarHeader').innerHTML = text);
+
+    // get post
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
@@ -74,7 +81,8 @@ function addComment() {
         credentials: "include",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken()
         },
         body: JSON.stringify(comment)
     })
