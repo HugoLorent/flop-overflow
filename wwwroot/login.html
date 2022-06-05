@@ -39,7 +39,7 @@
     <main class="form-signin">
         <form action="javascript:void(0);" onsubmit="signin()">
             <img class="mb-4" src="images/logo.jpg" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Flop Overflow</h1>
 
             <div class="form-floating">
                 <input class="form-control" id="login">
@@ -52,16 +52,16 @@
 
             <div class="checkbox mb-3">
                 <label>
-                    <a href="index.html">Continue without logging</a>
+                    <a href="index.html">Continue as a visitor</a>
                 </label>
             </div>
-            <div class="container">
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-primary btn-lg px-4 gap-3" type="submit">Sign in</button>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="goToRegisterPage()">Sign up</button>
             </div>
-            <div class="container">
-                <button class="w-100 btn btn-lg btn-primary" onclick="goToRegisterPage()">Not Register ? Click here</button>
-            </div>
-                <p class="mt-5 mb-3 text-muted">&copy; IPI</p>
+
+            <p class="mt-5 mb-3 text-muted">&copy; IPI</p>
         </form>
     </main>
 
