@@ -1,10 +1,12 @@
 ﻿using FlopOverflow.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestAuthentificationToken.Controllers;
 
 namespace FlopOverflow.Controllers
 {
@@ -12,10 +14,12 @@ namespace FlopOverflow.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private IConfiguration _config;
         private MyDbContext _context;
 
-        public UserController(MyDbContext context)
+        public UserController(IConfiguration config, MyDbContext context)
         {
+            _config = config;
             _context = context;
         }
 
@@ -84,12 +88,22 @@ namespace FlopOverflow.Controllers
 
         // POST: api/User
         [HttpPost]
-        public async Task<ActionResult<UserItem>> PostUser(UserItem user)
+        public IActionResult PostUser(UserItem user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            if(user.Login != null && user.Login.Any() && user.Pwd != null && user.Pwd.Any())
+            {
+                _context.Users.Add(user);
+                _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+                LoginController lc = new LoginController(_config, _context);
+
+                return Ok(lc.Generate(user));
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
 
         // DELETE: api/User/5

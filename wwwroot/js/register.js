@@ -2,8 +2,7 @@
 
 function register() {
 
-    let success = true;
-    const login = {
+    const user = {
         Login: document.getElementById('login').value.trim(),
         Pwd: document.getElementById('pwd').value.trim()
     };
@@ -14,19 +13,14 @@ function register() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(login)
+        body: JSON.stringify(user)
         })
         .then(response => {
-            if (response.status === 404) {
-                alert("Try again...");
-                success = false;
-            }
             return response.json();
         })
         .then(data => {
-            if (success) {
-                window.location.href = "index.html";
-            }
+            document.cookie = "token=" + data;
+            window.location.href = "index.html";
         })
         .catch(error => console.error('Unable to register.', error));
 }

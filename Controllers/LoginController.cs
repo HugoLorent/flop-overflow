@@ -41,7 +41,7 @@ namespace TestAuthentificationToken.Controllers
             return NotFound("User not found");
         }
 
-        private string Generate(UserItem user)
+        public string Generate(UserItem user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
