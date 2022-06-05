@@ -93,7 +93,7 @@ namespace FlopOverflow.Controllers
             if(user.Login != null && user.Login.Any() && user.Pwd != null && user.Pwd.Any())
             {
                 _context.Users.Add(user);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 LoginController lc = new LoginController(_config, _context);
 
