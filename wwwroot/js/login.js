@@ -7,18 +7,9 @@ function goToRegisterPage() {
 }
 
 function checkToken() {
-    if (check_cookie_name("token") != null) {
+    var token = getToken();
+    if (token != null && token != "") {
         window.location.href = "index.html";
-    }
-}
-
-function check_cookie_name(name) {
-    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if (match) {
-        return(match[2]);
-    }
-    else {
-        return null;
     }
 }
 
