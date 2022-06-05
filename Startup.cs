@@ -71,7 +71,7 @@ namespace FlopOverflow
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.Json", "Flop APIs");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flop APIs");
             });
 
             if (env.IsDevelopment())

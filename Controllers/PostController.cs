@@ -22,9 +22,9 @@ namespace FlopOverflow.Controllers
             _context = context;
         }
 
-        // ============
-        // === POST ===
-        // ============
+        //// ============
+        //// === POST ===
+        //// ============
 
         // GET: api/Post
         [HttpGet]
@@ -162,14 +162,15 @@ namespace FlopOverflow.Controllers
             return post;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private bool PostExists(int id)
         {
             return _context.Posts.Any(u => u.Id == id);
         }
 
-        // ===============
-        // === COMMENT ===
-        // ===============
+        //// ===============
+        //// === COMMENT ===
+        //// ===============
 
         // GET: api/Post/1/Comment
         [HttpGet]
@@ -254,15 +255,17 @@ namespace FlopOverflow.Controllers
             return NoContent();
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private bool CommentExists(int postId, int commentId)
         {
             return _context.Comments.Any(c => c.Id == commentId && c.Post_id == postId);
         }
 
-        // =============
-        // === UTILS ===
-        // =============
+        //// =============
+        //// === UTILS ===
+        //// =============
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public UserItem GetCurrentUser()
         {
             return new UserItem { Id = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)), Login = User.FindFirstValue(ClaimTypes.Name) };
