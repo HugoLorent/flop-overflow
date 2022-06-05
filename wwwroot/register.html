@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>FlopOverflow - Login</title>
+    <title>FlopOverflow - Register</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
@@ -31,15 +31,15 @@
         }
     </style>
 
-    <script src="js/login.js" asp-append-version="true"></script>
+    <script src="js/register.js" asp-append-version="true"></script>
 
 </head>
 <body class="text-center">
 
     <main class="form-signin">
-        <form action="javascript:void(0);" onsubmit="signin()">
+        <form action="javascript:void(0);" onsubmit="register()">
             <img class="mb-4" src="images/logo.jpg" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Please register</h1>
 
             <div class="form-floating">
                 <input class="form-control" id="login">
@@ -55,13 +55,9 @@
                     <a href="index.html">Continue without logging</a>
                 </label>
             </div>
-            <div class="container">
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            </div>
-            <div class="container">
-                <button class="w-100 btn btn-lg btn-primary" onclick="goToRegisterPage()">Not Register ? Click here</button>
-            </div>
-                <p class="mt-5 mb-3 text-muted">&copy; IPI</p>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+            <p class="mt-5 mb-3 text-muted">&copy; IPI</p>
         </form>
     </main>
 
