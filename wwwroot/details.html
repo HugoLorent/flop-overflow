@@ -9,8 +9,13 @@
     <meta name="generator" content="Hugo 0.98.0">
     <title>Flop Overflow - Details</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="js/details.js" asp-append-version="true"></script>
     <script src="js/header.js" asp-append-version="true"></script>
@@ -65,7 +70,10 @@
                 <form action="javascript:void(0);" onsubmit="addComment()">
                     <div class="input-group">
                         <textarea class="form-control" rows="5" id="comment" placeholder="Type your ambigous answer..." rows="1"></textarea>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="signin-spinner" style="display: none;"></span>
+                            Add
+                        </button>
                     </div>
                 </form>
             </div>
@@ -73,7 +81,20 @@
 
     </main>
 
-    <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <div class="modal fade bd-example-modal-sm" id="modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Error</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body" id="modal-content"></div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -14,10 +14,26 @@ function initializePage() {
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
 
+    let success = true;
     fetch(uri + "/" + id)
-        .then(response => response.json())
-        .then(data => displayPost(data))
-        .catch(error => console.error('Unable to get items.', error));
+        .then(response => {
+            if (response.status === 404) {
+                success = false;
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (success) {
+                displayPost(data)
+            } else {
+                $('#modal-content').text(data);
+                $("#modal").modal('show');
+            }
+        })
+        .catch(error => {
+            $('#modal-content').text("An error has occurred");
+            $("#modal").modal('show');
+        });
 }
 
 function displayPost(post) {
@@ -93,7 +109,10 @@ function addComment() {
             tbComment.value = "";
             displayPost(data);
         })
-        .catch(error => console.error('Unable to add comment.', error));
+        .catch(error => {
+            $('#modal-content').text("An error has occurred");
+            $("#modal").modal('show');
+        });
 }
 
 function likePost() {
@@ -103,19 +122,30 @@ function likePost() {
 
     const url = uri + "/" + id + "/Like";
 
+    let success = true;
     fetch(url, {
         method: 'PATCH',
         credentials: "include",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken()
         }
     })
         .then(response => {
+            if (response.status == 401) { success = false }
             return response.json();
         })
         .then(data => {
-            displayPost(data);
+            if (success) {
+                displayPost(data);
+            } else {
+                $('#modal-content').text(data);
+                $("#modal").modal('show');
+            }
         })
-        .catch(error => console.error('Unable to add comment.', error));
+        .catch(error => {
+            $('#modal-content').text("An error has occurred");
+            $("#modal").modal('show');
+        })
 }

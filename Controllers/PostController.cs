@@ -115,7 +115,7 @@ namespace FlopOverflow.Controllers
         [Route("{postId:int}/Like")]
         public async Task<ActionResult<PostItem>> LikePost(int postId)
         {
-            if (GetCurrentUser().Id <= 0) return Unauthorized();
+            if (GetCurrentUser().Id <= 0) return Unauthorized("Please login to use this feature");
 
             PostItem post = GetPost(postId).Result.Value;
             post.Likes += 1;

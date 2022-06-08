@@ -1,7 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
         checkToken();
-    }, 50);
+    }, 100);
 }, false);
 
 function checkToken() {
