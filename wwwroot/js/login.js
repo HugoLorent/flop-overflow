@@ -3,7 +3,7 @@
 window.onload = checkToken;
 
 function goToRegisterPage() {
-    location.href = '/register.html'
+    location.href = 'register.html'
 }
 
 function checkToken() {
@@ -16,9 +16,19 @@ function checkToken() {
 function signin() {
 
     var success = true;
+    var loginContent = document.getElementById('login').value.trim();
+    var pwdContent = document.getElementById('pwd').value.trim();
+
+    if (loginContent === "" || pwdContent === "")
+    {
+        $('#myModalContent').text("Please fill in the login and password");
+        $("#myModal").modal('show');
+        return
+    }
+
     const login = {
-        Login: document.getElementById('login').value.trim(),
-        Pwd: document.getElementById('pwd').value.trim()
+        Login: loginContent,
+        Pwd: pwdContent
     };
 
     fetch(uri, {
@@ -31,7 +41,6 @@ function signin() {
     })
         .then(response => {
             if (response.status === 404) {
-                alert("Try again...");
                 success = false;
             }
             return response.json();
@@ -40,7 +49,13 @@ function signin() {
             if (success) {
                 document.cookie = "token=" + data;
                 window.location.href = "index.html";
+            } else {
+                $('#myModalContent').text(data);
+                $("#myModal").modal('show');
             }
         })
-        .catch(error => console.error('Unable to login.', error));
+        .catch(error => {
+            $('#myModalContent').text("An error has occurred");
+            $("#myModal").modal('show');
+        });
 }
