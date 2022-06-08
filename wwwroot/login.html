@@ -64,13 +64,18 @@
             </div>
 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <button class="btn btn-primary btn-lg px-4 gap-3" type="submit">Sign in</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="goToRegisterPage()">Sign up</button>
+                <button class="btn btn-primary btn-lg px-4 gap-3" type="submit">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="signin-spinner" style="display: none;"></span>
+                    Sign in
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="goToRegisterPage()">
+                    Sign up
+                </button>
             </div>
 
             <p class="mt-5 mb-3 text-muted">&copy; IPI</p>
 
-            <div class="modal fade bd-example-modal-sm" id="myModal">
+            <div class="modal fade bd-example-modal-sm" id="modal">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
 
@@ -79,7 +84,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
-                        <div class="modal-body" id="myModalContent"></div>
+                        <div class="modal-body" id="modal-content"></div>
 
                     </div>
                 </div>

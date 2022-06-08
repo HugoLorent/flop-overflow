@@ -19,11 +19,12 @@ function signin() {
     var loginContent = document.getElementById('login').value.trim();
     var pwdContent = document.getElementById('pwd').value.trim();
 
-    if (loginContent === "" || pwdContent === "")
-    {
-        $('#myModalContent').text("Please fill in the login and password");
-        $("#myModal").modal('show');
+    if (loginContent === "" || pwdContent === "") {
+        $('#modal-content').text("Please fill in the login and password");
+        $("#modal").modal('show');
         return
+    } else {
+        $("#signin-spinner").show();
     }
 
     const login = {
@@ -46,16 +47,18 @@ function signin() {
             return response.json();
         })
         .then(data => {
+            $("#signin-spinner").hide();
             if (success) {
                 document.cookie = "token=" + data;
                 window.location.href = "index.html";
             } else {
-                $('#myModalContent').text(data);
-                $("#myModal").modal('show');
+                $('#modal-content').text(data);
+                $("#modal").modal('show');
             }
         })
         .catch(error => {
-            $('#myModalContent').text("An error has occurred");
-            $("#myModal").modal('show');
+            $("#signin-spinner").hide();
+            $('#modal-content').text("An error has occurred");
+            $("#modal").modal('show');
         });
 }
