@@ -123,6 +123,7 @@ namespace FlopOverflow.Controllers
             return user;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private bool UserExists(int id)
         {
             return _context.Users.Any(u => u.Id == id);

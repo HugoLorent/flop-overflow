@@ -41,6 +41,7 @@ namespace TestAuthentificationToken.Controllers
             return NotFound("User not found");
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public string Generate(UserItem user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -61,6 +62,7 @@ namespace TestAuthentificationToken.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private UserItem Authenticate(UserLogin userLogin)
         {
             var currentUser = _context.Users
