@@ -15,6 +15,9 @@ using Pomelo.EntityFrameworkCore.MySql.Storage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace FlopOverflow
 {
@@ -23,7 +26,24 @@ namespace FlopOverflow
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Thread t = new Thread(new ThreadStart(Sleeper));
+            t.Start();
         }
+        public static void Sleeper()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://flop-overflow.azurewebsites.net/api/post");
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
+
+            while (true)
+            {
+                client.GetAsync("");
+                Thread.Sleep(1000);
+            }
+        }
+
 
         public IConfiguration Configuration { get; }
 
